@@ -28,7 +28,6 @@ public class Zadanie extends Thread{
         if (zatwierdzenie) {
             this.stan = Stan.ROZPOCZETE;
         } else {
-            // Niezatwierdzone zadanie
             this.stan = Stan.UTWORZONE;
         }
     }
@@ -42,57 +41,15 @@ public class Zadanie extends Thread{
         return stan;
     }
 
-    // Metoda uruchamiająca zadanie
     @Override
     public void run() {
-        // Sprawdzanie czy wszystkie osoby w zespole są zdrowe
-        boolean wszyscyZdrowi = true;
-        for (Pracownik pracownik : getZespol().getListaPracownikow()) {
-            if (!pracownik.CzyZdrowy()) {
-                wszyscyZdrowi = false;
-                break;
-            }
-        }
-
-        if (wszyscyZdrowi) {
-            // Rozpoczęcie zadania
-            stan = Stan.ROZPOCZETE;
-            System.out.println("Zadanie " + nazwa + " zostało rozpoczęte.");
-
-            // Symulacja pracy
-            try {
-                Thread.sleep(czasWykonania * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            // Zakończenie zadania
-            stan = Stan.ZAKONCZONE;
-            dataZakonczenia = LocalDateTime.now();
-            System.out.println("Zadanie " + nazwa + " zostało zakończone.");
-        } else {
-            // Nie można rozpocząć zadania, przynajmniej jeden pracownik jest chory
-            System.out.println("Nie można rozpocząć zadania " + nazwa + ". Przynajmniej jeden pracownik jest chory.");
-        }
-    }
-
-    // Metoda zwracająca czas wykonywania zadania
-    public int getCzasWykonania() {
-        return czasWykonania;
-    }
-
-    // Metoda zwracająca zespół, w którym znajduje się zadanie
-    public Zespol getZespol() {
-        // Implementacja zależy od Twojej struktury danych
-        // Załóżmy, że zadanie jest przypisane bezpośrednio do zespołu
-        return null;
+        // Logika wykonania zadania
     }
 
     @Override
     public String toString() {
         return "Zadanie{" +
-                "id=" + id +
-                ", nazwa='" + nazwa + '\'' +
+                "nazwa='" + nazwa + '\'' +
                 ", opis='" + opis + '\'' +
                 ", stan=" + stan +
                 ", dataUtworzenia=" + dataUtworzenia +
